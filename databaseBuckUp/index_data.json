@@ -1,0 +1,1 @@
+[{"pk": 1, "model": "EatsIndex.relationship", "fields": {"itself": 1, "relation": [2, 3]}}, {"pk": 2, "model": "EatsIndex.relationship", "fields": {"itself": 2, "relation": [1, 3]}}, {"pk": 3, "model": "EatsIndex.relationship", "fields": {"itself": 3, "relation": [1, 2]}}, {"pk": 4, "model": "EatsIndex.relationship", "fields": {"itself": 4, "relation": []}}]
