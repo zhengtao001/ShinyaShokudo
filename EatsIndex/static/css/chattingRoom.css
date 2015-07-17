@@ -1,0 +1,133 @@
+#wrapper {
+    width: 1000px;
+    margin-top: 20px;
+    margin-left: 120px;
+}
+
+.headerInfo {
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: rgb(255,150,128);
+}
+
+.friends-content {
+    padding: 10px 0px;
+    height: 445px;
+    overflow: auto;
+}
+
+.friends-content ul {
+    list-style-type: none;
+}
+
+.friends-content ul li {
+    margin: 5px 20px;
+}
+
+#friends {
+    vertical-align: top;
+    float: left;
+    width: 260px;
+    height: 500px;
+    border: 1px solid rgb(255, 150, 128);
+}
+
+
+.dialog {
+    vertical-align: top;
+    width:715px;
+    height: 500px;
+    float:left;
+    position: relative;
+    border: 1px solid rgb(255, 150, 128);
+}
+
+.dialog-content {
+    padding: 10px 0px;
+    height: 370px;
+    overflow: auto;
+}
+
+li.fromOthers {
+    text-align: left;
+}
+
+li.fromSelf {
+    text-align: right;
+}
+
+.dialog-content ul {
+    list-style-type: none;
+    margin: 5px 20px;
+}
+
+li.words {
+    margin-bottom: 10px;
+}
+
+li.words div.what {
+    margin-left: 15px;
+    border: 1px rgb(255,150,128) dotted;
+    padding: 5px 10px;
+    word-wrap : break-all;
+}
+
+#main:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.dialog-text-wrapper {
+    margin-left: 15px
+}
+
+.textarea {
+    resize: none;
+    vertical-align: bottom;
+    width: 600px;
+    height: 60px;
+}
+
+.say {
+    width: 60px;
+    height: 66px;
+    vertical-align: bottom;
+}
+
+.uploading div.when {
+    padding-left: 20px;
+    background-size: contain;
+    background-position: right;
+    background-repeat: no-repeat;
+    background-image: url("../images/loding.gif");
+}
+
+.checkboxLabel {
+    display: inline-block;
+    width: 120px;
+    margin-right: 60px;
+}
+
+#tabs ul li a {
+    width: 170px;
+}
+
+.ui-tabs-vertical { width: 55em; }
+.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
+.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
+.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; border-right-width: 1px; }
+.ui-tabs-vertical .ui-tabs-panel { padding: 1em; float: right; width: 40em;}
+
+input.text { margin-bottom:12px; width:95%; padding: .4em; }
+.ui-dialog .ui-state-error { padding: .3em; }
+.validateTips { 
+    border: 1px dotted gray;
+    padding: 0.3em;
+    margin-bottom: 10px;
+    background-color: rgb(255, 84, 84);
+}
