@@ -1,0 +1,136 @@
+﻿{% extends 'EatsIndex/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+<div class="logo">
+    <!--<div class="eatsLogo"></div>-->
+    <ul>
+        <li><img src="{% static 'images/logoslide/logoslide01.jpg' %}" class = "slideimg"/></li>
+        <li><img src="{% static 'images/logoslide/logoslide02.jpg' %}" class = "slideimg"/></li>
+        <li><img src="{% static 'images/logoslide/logoslide03.jpg' %}" class = "slideimg"/></li>
+        <li><img src="{% static 'images/logoslide/logoslide04.jpg' %}" class = "slideimg"/></li>
+        <li><img src="{% static 'images/logoslide/logoslide05.jpg' %}" class = "slideimg"/></li>
+        <li><img src="{% static 'images/logoslide/logoslide06.jpg' %}" class = "slideimg"/></li>
+        <li><img src="{% static 'images/logoslide/logoslide07.jpg' %}" class = "slideimg"/></li>
+        <li><img src="{% static 'images/logoslide/logoslide08.jpg' %}" class = "slideimg"/></li>
+        <li><img src="{% static 'images/logoslide/logoslide09.jpg' %}" class = "slideimg"/></li>
+        <li><img src="{% static 'images/logoslide/logoslide10.jpg' %}" class = "slideimg"/></li>
+  </ul>
+</div>
+
+<div class="briefcomment">
+    <div class="latestComment">
+        <div class="briefTitle">
+            最新评论
+        </div>
+        {% for latestComment in OrderByPubDate %}
+        <div class="user_comment">
+            <div class="likeit">
+                <a id="red" href="{% url 'EatsIndex:LikeIt' latestComment.id %}">likeit
+                    <img src="{% static 'images/good.png' %}" />
+                </a>
+                <p>{{ latestComment.plus_one }}</p>
+            </div>
+            <div class="comment_text">
+                {{ latestComment.text }}
+                <p class="now_time">
+                    {% if user.is_authenticated %}
+                    <a id="user_cname" href="{% url 'EatsIndex:follow' latestComment.author.id %}">
+                        {% if user != latestComment.author %}
+                            {% if latestComment.author in follow_list %}
+                            (-)
+                            {% else %}
+                            (+)
+                            {% endif %}
+                        {% endif %}
+                    </a>
+                    {% endif %}
+                    {{ latestComment.pub_date }}
+                    <a id="user_cname" href="{% url 'EatsIndex:details' latestComment.author.id %}">
+                        {{ latestComment.author }}
+                    </a>
+                </p>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}   
+        <div class="more"><a href="{% url 'EatsIndex:lookfor' %}">more..</a></div>
+    </div>
+    <div class="latestComment">
+        <div class="briefTitle">
+            赞最多的评论
+        </div> 
+        {% for hostedComment in OrderByPlusOne %}
+        <div class="user_comment">
+            <div class="likeit">
+                <a id="red" href="{% url 'EatsIndex:LikeIt' hostedComment.id %}">likeit
+                    <img src="{% static 'images/good.png' %}" />
+                </a>
+                <p>{{ hostedComment.plus_one }}</p>
+            </div>
+            <div class="comment_text">
+                {{ hostedComment.text }}
+                <p class="now_time">
+                    {% if user.is_authenticated %}
+                    <a id="user_cname" href="{% url 'EatsIndex:follow' hostedComment.author.id %}">
+                        {% if hostedComment.author != user %}
+                            {% if hostedComment.author in follow_list %}
+                            (-)
+                            {% else %}
+                            (+)
+                            {% endif %}
+                        {% endif %}
+                    </a>
+                    {% endif %}
+                    {{ hostedComment.pub_date }}
+                    <a id="user_cname" href="{% url 'EatsIndex:details' hostedComment.author.id %}">
+                        {{ hostedComment.author }}
+                    </a>
+                </p>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+        <div class="more"><a href="{% url 'EatsIndex:lookfor' %}">more..</a></div>
+    </div>
+    <div class="bestFood">
+        <div class="briefTitle">
+            你可能感兴趣
+        </div>
+        {% for RandomComment in OrderByRandom %}
+        <div class="user_comment">
+            <div class="likeit">
+                <a id="red" href="{% url 'EatsIndex:LikeIt' RandomComment.id %}">likeit
+                    <img src="{% static 'images/good.png' %}" />
+                </a>
+                <p>{{ RandomComment.plus_one }}</p>
+            </div>
+            <div class="comment_text">
+                {{ RandomComment.text }}
+                <p class="now_time">
+                    {% if user.is_authenticated %}
+                    <a id="user_cname" href="{% url 'EatsIndex:follow' RandomComment.author.id %}">
+                        {% if RandomComment.author != user %}
+                            {% if RandomComment.author in follow_list %}
+                            (-)
+                            {% else %}
+                            (+)
+                            {% endif %}
+                        {% endif %}
+                    </a>
+                    {% endif %}
+                    {{ RandomComment.pub_date }}
+                    <a id="user_cname" href="{% url 'EatsIndex:details' RandomComment.author.id %}">
+                        {{ RandomComment.author }}
+                    </a>
+                </p>
+            </div>
+        </div>
+        <hr>
+        {% endfor %}
+        <div class="more"><a href="{% url 'EatsIndex:lookfor' %}">more..</a></div>
+    </div>
+</div>
+
+{% endblock %}

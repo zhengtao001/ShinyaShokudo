@@ -1,0 +1,48 @@
+{% extends 'EatsIndex/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+<div class = "comment">
+  <table class = "table">
+    <tr class = "tr">
+      {% for i in commentlist %}
+      <td class = "td">
+        <img src = "/site_media/{{i.model_pic.name}}" class = "pic">
+        <h3>{{ i.foodname }}</h3>
+        <h4>[地址]   {{ i.address }}</h4>
+        <div class="likeit">
+          <a id="red" href="{% url 'EatsIndex:LikeIt' i.id %}">
+          <img src="{% static 'images/good.png' %}" />
+          </a>
+          <p>{{ i.plus_one }}</p>
+        </div>
+        <h5>¥<em>{{ i.price }}</em>
+        </h5>
+        {{ i.text }}
+        <br />
+      <h6>--------  {{ i.author.username }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>{{ i.pub_date }}</em></h6>
+      </td>
+      {% endfor %}
+    </tr>
+  </table>
+  <!-- <button type = "button" class = "loadMore">点击加载更多</button> -->
+</div>
+{% if user.is_authenticated %}
+<button type = "button" class = "addComment">添加评论</button>
+<div class="addNewComment">
+  <form action = "{% url 'EatsIndex:lookfor' %}" method = "post" enctype="multipart/form-data">
+  {% csrf_token %}
+    地点位置：<input type="text" name="address" /><br />
+    美食名称：<input type="text" name="foodname" /><br />
+    美食价格：<input type="text" name="price" /><br />
+    美食感受：<input type="text" name="text" /><br />
+    美食图片：<input type="file" name="image" /><br />
+    <input type="submit" value="提交">
+  </form>
+</div>
+{% endif %}
+
+{% endblock %}
+
