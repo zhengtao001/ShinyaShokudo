@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/Eat_css.css' %}">
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    {% block headers %}{% endblock %}
+    <title>Eats</title>
+</head>
+<body class="full">
+    <div class="naviBlock">
+        <img src = "{% static 'images/navi.png' %}" />
+        <a class="naviLink" href="{% url 'EatsIndex:index' %}">Home</a><br />
+        <a class="naviLink" href="{% url 'EatsIndex:lookfor' %}">Forum</a><br />
+        <a class="naviLink" href="{% url 'EatsIndex:friends' %}">Friends</a><br />
+        <a class="naviLink" href="#top">Top</a>
+    </div>
+    {% if not user.is_authenticated %}
+    <div class="theme-popover loginDiv">
+         <div class="theme-poptit">
+              <a href="javascript:;" title="关闭" class="close">×</a>
+              <h3>赶快登陆享受美食生活(๑•̀ㅂ•́)و✧</h3>
+         </div>
+         <div class="theme-popbod dform">
+               <form class="theme-signin" name="loginform" action="{% url 'EatsIndex:userlogin' 'index' %}" method="post">
+               {% csrf_token %}
+                    <ol>
+                         <li><strong>用户名：</strong><input class="ipt" type="text" name="username" value="" size="20" /></li>
+                         <li><strong>密码：</strong><input class="ipt" type="password" name="password" value="" size="20" /></li>
+                         <li><input class="btn btn-primary" type="submit" name="submit" value=" 登 录 " /></li>
+                         <li><a class="Vtoggle" href="#">还没账号?点击注册</a></li>
+                    </ol>
+               </form>
+         </div>
+    </div>
+    <div class="theme-popover registerDiv">
+         <div class="theme-poptit">
+              <a href="javascript:;" title="关闭" class="close">×</a>
+              <h3>赶快注册享受美食生活(●´ω｀●)</h3>
+         </div>
+         <div class="theme-popbod dform">
+               
+              <form class="theme-signin" name="loginform" action="{% url 'EatsIndex:registe' %}" method="post">
+              {% csrf_token %}
+                <ol>
+                  <li><strong>用户名：</strong><input type="text" class="ipt" name="username" size="20" /></li>
+                  <li><strong>请输入密码：</strong><input class="ipt" type="password" name="password" size="20" /></li>
+                  <li><strong>再次输入密码：</strong><input class="ipt" type="password" name="psw_confirm" size="20" /></li>
+                  <li><strong>您的邮箱：</strong><input class="ipt" type="email" name="emial_add" size="20" /></li>
+                  <li><input class="btn btn-primary" type="submit" value=" 注 册 " /></li>
+                  <li><a class="Vtoggle" href="#">有了账号？点击登录</a></li>
+                </ol>
+              </form>
+         </div>
+    </div>
+    {% endif %}
+    <div class="contains" name="top">
+        <div class="head">
+            <div class="nagi">
+                <div class="choice">
+                    <a class="choice_what" href="{% url 'EatsIndex:index' %}" name="choice1">首页</a>
+                    <a class="choice_what_other" href="{% url 'EatsIndex:lookfor' %}" name="choice2">分享味觉</a>
+                    <a class="choice_what" href="http://ele.me" name="choice3">觅食去</a>
+                    <a class="choice_what_other" href="{% url 'EatsIndex:friends' %}" name="choice4">吃货们</a>
+                    <a class="choice_what" href="{% url 'EatsIndex:chatPage' %}" name="choice1">Chat</a>
+                </div>
+                {% if user.is_authenticated %}
+                <div class="user_login">
+                  <a href="{% url 'EatsIndex:details' user.id %}">
+                    {{ user.username }}
+                  </a>
+                  <span>
+                    <a href="{% url 'EatsIndex:userlogout' %}">注销</a>
+                  </span>
+                </div>
+                {% else %}
+                <div class="user_login">
+                    <a href="#" name="login" class="login">登陆/注册</a>
+                </div>
+                {% endif %}
+                <div class="search">
+                    <form method="get" action="{% url 'EatsIndex:searchTitle' %}" >
+                        <input type="text" name="ThingToSreach" class="sinput">
+                        <input type="submit" class="sbutton" value="Search!">
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% block content %}{% endblock %}
+        <!--本来是用footer可是IE6不支持啊..-->
+        <div class="support">
+                中山大学 -ShinyaShokudo- 团队版权所有 COPYRIGHT©2014-2015 , SUN YAT-SEN UNIVERSITY<br />
+                <a href="#">网站地图</a>
+                <a href="#">&nbsp&nbsp联系我们</a>
+        </div>
+    </div>
+    <script type="text/javascript" src="{% static 'js/jqueryColor.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.flip.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/Eats_js.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+{% extends 'EatsIndex/base.html' %}
+
+{% load staticfiles %}
+
+{% block headers %}
+
+<script src="{% static 'js/chat.js' %}"></script>
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script> 
+<script>
+
+</script>
+{% endblock %}
+
+{% block content %}
+
+<div id="wrapper">
+    <div id="main">
+        <div id="GroupCreater" title="Create a Group">
+            <form id="GroupFactory">
+                <p class="validateTips" id="createGroupTips">I'm the tips!</p>
+                <label for="name">GroupName</label>
+                <input type="text" name="name" id="12create" placeholder="What is your group name?" class="text ui-widget-content ui-corner-all">
+                <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                <fieldset id="choosefriends">
+                    <legend>Which friends?</legend>
+                </fieldset>
+                {% csrf_token %}
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </form>
+        </div>
+        <div id="JoinGroup" title="Join a Group">
+            <form id="JoinGroupForm">
+                <p class="validateTips" id="joinGroupTips">I'm the tips!</p>
+                <label for="name">GroupName</label>
+                <input type="text" name="name" id="12join" placeholder="What is the group name?" class="text ui-widget-content ui-corner-all">
+                <!-- Allow form submission with keyboard without duplicating the dialog button -->
+                {% csrf_token %}
+                <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+            </form>
+        </div>
+        <button id="opener-CreateGroup">Create a group</button>
+        <button id="opener-JoinGroup">Join a group</button>
+        <div id="tabs">
+            <ul>
+            {% for friend in friends %}
+                <li><a href="#tabs-{{forloop.counter}}" >{{ friend.username }}</a></li>
+            {% endfor %}
+            {% for group in groups %}
+                <li><a href="#tabs-{{forloop.counter|add:friedns_count}}" >{{ group.groupname }}</a></li>
+            {% endfor %}
+            </ul>
+            {% for friend in friends %}
+            <div id="tabs-{{forloop.counter}}" talkto="user-{{ friend.id }}" >
+                <div class="dialog">
+                    <div class="headerInfo">
+                        <strong>Chatting with {{ friend.username }}</strong>
+                    </div>
+                    <div class="dialog-content" >
+                        <ul class="dialog-ul">
+                        </ul>
+                    </div>
+                    <div class="dialog-text">
+                        <div class="dialog-text-wrapper">
+                            <textarea name="text" class="textarea"></textarea>
+
+                            <button type="button" class="say">Say   </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% for group in groups %}
+            <div id="tabs-{{forloop.counter|add:friedns_count}}" talkto="group-{{ group.id }}" >
+                <div class="dialog">
+                    <div class="headerInfo">
+                        <strong>Chatting in Group. {{ group.groupname }}</strong>
+                    </div>
+                    <div class="dialog-content" >
+                        <ul class="dialog-ul">
+                        </ul>
+                    </div>
+                    <div class="dialog-text">
+                        <div class="dialog-text-wrapper">
+                            <textarea name="text" class="textarea"></textarea>
+
+                            <button type="button" class="say">Say   </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<link rel="stylesheet" href="{% static 'css/chattingRoom.css' %}">
+
+
+{% endblock %}
