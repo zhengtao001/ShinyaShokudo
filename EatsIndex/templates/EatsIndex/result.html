@@ -1,0 +1,38 @@
+{% extends 'EatsIndex/base.html' %}
+
+{% load staticfiles %}
+
+{% block headers %}
+{% endblock %}
+
+{% block content %}
+
+<div class = "comment">
+    <div id = "count">
+      搜索：“{{ keyword }}” &nbsp; 共搜索到 {{ commentlist.count }} 条结果。
+      </div>
+      <table class = "table">
+        <tr class = "tr">
+          {% for i in commentlist %}
+          <td class = "td">
+            <img src = "/site_media/{{i.model_pic.name}}" class = "pic">
+            <h3>{{ i.foodname }}</h3>
+            <h4>[地址]   {{ i.address }}</h4>
+            <div class="likeit">
+              <a id="red" href="{% url 'EatsIndex:LikeIt' i.id %}">
+              <img src="{% static 'images/good.png' %}" />
+              </a>
+              <p>{{ i.plus_one }}</p>
+            </div>
+            <h5>¥<em>{{ i.price }}</em>
+            </h5>
+            {{ i.text }}
+            <br />
+          <h6>--------  {{ i.author.username }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em>{{ i.pub_date }}</em></h6>
+          </td>
+          {% endfor %}
+        </tr>
+      </table>
+    </div>
+
+{% endblock %}

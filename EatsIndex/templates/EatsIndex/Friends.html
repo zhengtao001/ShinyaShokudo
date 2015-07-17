@@ -1,0 +1,29 @@
+﻿{% extends 'EatsIndex/base.html' %}
+
+{% load staticfiles %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+      {% if follow_list %}
+      <div id="target3D">
+        {% for u in follow_list %}
+        <a href="#">{{ u.username }}</a>
+        {% endfor %}
+      </div>
+      {% else %}
+      <div class = "ErrorDiv">
+        <div class = "ErrorMsg">
+          你还没关注任何人！点击用户名称即可关注，快去关注几个人吧！
+        </div>
+      </div>
+      {% endif %}
+    {% else %}
+    <div class = "ErrorDiv">
+      <div class = "ErrorMsg">
+        Please login first!
+      </div>
+    </div>
+    {% endif %}
+
+{% endblock %}
